@@ -1,0 +1,52 @@
+# Ermis V2 Local Audio Annotation & QA Assistant
+#
+# CORE (required) -- validator, config, storage, audio loader, waveform data,
+# and the whole analysis engine. numpy and scipy only, so the rule engine and
+# the detection engine both run without a GUI or any audio library installed.
+numpy>=1.24
+scipy>=1.10
+
+# UI (required to launch the desktop application)
+PySide6>=6.5
+
+# PLAYBACK and MICROPHONE CAPTURE. Optional: without it the transport still
+# tracks position and the status bar reports that no output device was found,
+# and the record bar disables itself and says what to install. Recording needs
+# a working PortAudio library as well as the package.
+sounddevice>=0.4
+
+# AUDIO decoding accelerator. Optional: the loader prefers the standard
+# library's `wave` for PCM WAV and the `ffmpeg` executable for every other
+# container, so soundfile is a faster path rather than a hard dependency.
+soundfile>=0.12
+
+# LOCAL SPEECH RECOGNITION (optional, needed for `draft` and the editor's
+# "Draft transcription from audio").
+#
+# DEVIATION NOTICE: CLAUDE.md sections 1 and 56.1 prohibit ASR-generated
+# transcription. Drafting exists because the project owner asked for the words
+# to come from the audio. It runs locally, and draft text is labelled
+# 'asr_draft' everywhere it is stored or exported -- never as human work.
+#
+# Pick ONE backend. faster-whisper is several times faster on CPU; the
+# transformers path is useful when torch is already installed.
+#
+#   pip install faster-whisper
+#   pip install torch transformers
+#
+# Both download model weights once, then run offline (set
+# asr.local_files_only = true to enforce that).
+
+# TEST
+pytest>=7.0
+
+# PACKAGING (optional) -- see packaging/README.md
+# pyinstaller>=6.0
+
+# ---------------------------------------------------------------------------
+# NOT PINNED HERE: the ASR backends above (faster-whisper, or torch +
+# transformers) are left as manual installs so the core and the GUI never pull
+# in a multi-gigabyte runtime. They are only needed for drafting; see the
+# deviation notice above and CLAUDE.md section 60. The PyInstaller spec still
+# blocks them, so a packaged build has no drafting.
+# ---------------------------------------------------------------------------

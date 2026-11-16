@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ermis-local-assistant"
+version = "0.1.0"
+description = "Local Ermis Transcription V2 audio annotation and QA assistant"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "scipy>=1.10"]
+
+[project.optional-dependencies]
+ui = ["PySide6>=6.5"]
+audio = ["soundfile>=0.12", "sounddevice>=0.4"]
+# Local drafting. See the deviation notice in requirements.txt.
+asr = ["faster-whisper>=1.0"]
+asr-torch = ["torch>=2.0", "transformers>=4.40"]
+packaging = ["pyinstaller>=6.0"]
+test = ["pytest>=7.0"]
+
+[project.scripts]
+ermis-assistant = "app.main:main"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

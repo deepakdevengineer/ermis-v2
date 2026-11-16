@@ -1,0 +1,28 @@
+# Local data: recordings, database, logs, exports. Never commit these --
+# they contain the audio and annotations being worked on.
+data/
+!data/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Test / tooling
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+.mypy_cache/
+
+# Local config may hold machine-specific paths
+config.local.json
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
